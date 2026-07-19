@@ -44,17 +44,32 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
+/** Inject Cache-Control: no-store on HTML responses so Cloudflare's edge never
+ *  caches SSR output. Static assets (/assets/*) are still served from Pages'
+ *  static layer with immutable caching — this only affects Worker responses. */
+function withNoCacheForHtml(response: Response): Response {
+  const ct = response.headers.get("content-type") ?? "";
+  if (!ct.includes("text/html")) return response;
+  const headers = new Headers(response.headers);
+  headers.set("Cache-Control", "no-store, no-cache, must-revalidate");
+  return new Response(response.body, { status: response.status, headers });
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      const normalized = await normalizeCatastrophicSsrResponse(response);
+      return withNoCacheForHtml(normalized);
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {
         status: 500,
-        headers: { "content-type": "text/html; charset=utf-8" },
+        headers: {
+          "content-type": "text/html; charset=utf-8",
+          "Cache-Control": "no-store",
+        },
       });
     }
   },

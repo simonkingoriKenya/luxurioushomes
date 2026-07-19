@@ -17,11 +17,23 @@ Build output goes to `dist/` with `dist/_worker.js/` for SSR and `dist/` for sta
 
 ## Deploy process (every time)
 ```bash
-bun run build
-CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_KEY bunx wrangler pages deploy dist --project-name luxurioushomes --commit-dirty=true
+bash scripts/deploy.sh
 ```
 
-No wrangler.json patching needed (cloudflare-pages preset handles output correctly).
+Script does: build → append HTML no-cache rule to dist/_headers → deploy with --branch main.
+**Always use --branch main** — without it wrangler creates a preview deployment and luxurioushomes.pages.dev stays on the old version.
+
+## Architecture — ONE deployment, no separate Worker
+- Nitro cloudflare-pages preset outputs dist/ containing:
+  - dist/              → static assets (served directly by Pages, immutable cache)
+  - dist/_worker.js/   → SSR Worker code BUNDLED INSIDE Pages (not a separate Worker script)
+  - dist/_routes.json  → tells Pages which requests hit Worker vs static
+- There is no separate Cloudflare Worker. Do not use wrangler deploy.
+
+## HTML caching fix
+- Cloudflare edge caches HTML responses with no Cache-Control, making deploys look invisible.
+- Fix is in src/server.ts: withNoCacheForHtml() injects Cache-Control: no-store on every text/html response.
+- _headers (static file headers) does NOT affect Worker/SSR responses — must be done in server code.
 
 ## Node.js version requirement
 wrangler requires Node.js ≥ 22. Module `nodejs-22` must be installed in the Replit environment.
