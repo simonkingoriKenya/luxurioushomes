@@ -10,7 +10,6 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header as SiteHeader } from "@/components/site/Header";
 import { Footer as SiteFooter } from "@/components/site/Footer";
 import { MobileBottomBar } from "@/components/site/MobileBottomBar";
@@ -41,7 +40,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    console.error("[ErrorBoundary]", error);
   }, [error]);
 
   return (
@@ -102,6 +101,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "manifest", href: "/manifest.webmanifest" },
+      { rel: "shortcut icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
       { rel: "apple-touch-icon", href: "/favicon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
