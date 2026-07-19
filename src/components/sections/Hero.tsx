@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Star, ArrowRight, Sparkles } from "lucide-react";
+import { Star, ArrowRight, BadgeCheck } from "lucide-react";
 import { heroBedroom } from "@/lib/luxurious-data";
 import { WhatsAppButton } from "@/components/site/WhatsAppButton";
 
@@ -60,13 +60,14 @@ export function Hero() {
               className="w-full h-56 sm:h-80 lg:h-[560px] object-cover"
             />
           </div>
+          {/* Verified badge — replaces generic "Special Discounts" */}
           <div className="absolute -bottom-4 sm:-bottom-6 -left-3 sm:-left-6 hidden sm:flex items-center gap-3 rounded-2xl bg-card border border-border shadow-elegant px-4 sm:px-5 py-3 sm:py-4">
             <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-gradient-gold flex items-center justify-center">
-              <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-navy-deep" />
+              <BadgeCheck className="h-4 w-4 sm:h-5 sm:w-5 text-navy-deep" />
             </div>
             <div>
-              <div className="text-sm font-medium">Special Discounts</div>
-              <div className="text-xs text-muted-foreground">Available this month</div>
+              <div className="text-sm font-medium">Verified Residences</div>
+              <div className="text-xs text-muted-foreground">Managed by Migradia</div>
             </div>
           </div>
         </div>

@@ -14,8 +14,8 @@ export function Properties({
   const [activeTab, setActiveTab] = useState<"all" | "studio" | "onebr" | "shared">("all");
 
   return (
-    <section className="py-24">
-      <div className="mx-auto max-w-7xl px-6">
+    <section className="py-16 sm:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto">
           <div className="text-xs uppercase tracking-[0.35em] text-accent">{kicker}</div>
           <h2 className="mt-3 font-serif text-4xl sm:text-5xl">{heading}</h2>
@@ -50,7 +50,7 @@ export function Properties({
           {properties.map((p) => (
             <article
               key={p.name}
-              className="group rounded-3xl bg-card border border-border overflow-hidden shadow-elegant hover:-translate-y-1 transition-transform duration-500"
+              className="group rounded-3xl bg-card border border-border overflow-hidden shadow-elegant hover:-translate-y-1 active:scale-[0.98] transition-transform duration-300"
             >
               <div className="relative h-64 overflow-hidden">
                 <img

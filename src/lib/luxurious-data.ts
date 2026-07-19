@@ -1,5 +1,4 @@
 import {
-  Sparkles,
   Tag,
   MapPin,
   UserCheck,
@@ -7,6 +6,7 @@ import {
   Building2,
   Users,
   Award,
+  CheckCircle2,
 } from "lucide-react";
 import heroBedroom from "@/assets/hero-bedroom.jpg";
 import livingRoom from "@/assets/living-room.jpg";
@@ -20,7 +20,7 @@ export const WHATSAPP_URL = "https://wa.me/971506841674";
 export const TEL_URL = `tel:${PHONE_RAW}`;
 
 export const highlights = [
-  { icon: Sparkles, title: "Clean & Well-Maintained", desc: "Immaculate accommodations kept to hotel standards." },
+  { icon: CheckCircle2, title: "Clean & Well-Maintained", desc: "Immaculate accommodations kept to hotel standards." },
   { icon: Tag, title: "Affordable Prices", desc: "Executive living without the executive price tag." },
   { icon: MapPin, title: "Prime Locations", desc: "Handpicked addresses across Dubai's finest districts." },
   { icon: UserCheck, title: "Professional Service", desc: "Attentive hosts, seamless move-in, zero hassle." },
@@ -66,10 +66,10 @@ export const properties = [
 ];
 
 export const gallery = [
-  { src: livingRoom, label: "Comfortable Living" },
-  { src: kitchen, label: "Modern Kitchen" },
-  { src: bathroom, label: "Clean Bathrooms" },
-  { src: bedroom2, label: "Peaceful Rooms" },
+  { src: livingRoom, label: "Spacious Living Areas" },
+  { src: kitchen, label: "Fully Equipped Kitchen" },
+  { src: bathroom, label: "Premium Bathrooms" },
+  { src: bedroom2, label: "Comfortable Bedrooms" },
 ];
 
 export const trustBadges = [
