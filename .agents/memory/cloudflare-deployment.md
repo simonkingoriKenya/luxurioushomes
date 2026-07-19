@@ -14,6 +14,8 @@ https://luxurioushomes.broad-tooth-82ac.workers.dev
 3. Delete `.wrangler/deploy/config.json`
 4. `cd .output/server && CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_KEY bunx wrangler deploy`
 
+**Note:** wrangler requires Node.js ≥ 22. The repl runs Node 20 by default — Node.js 22 module must be installed (`nodejs-22`) for wrangler to work.
+
 ## Clean wrangler.json for .output/server/
 ```json
 {
