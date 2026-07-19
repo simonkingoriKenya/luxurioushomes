@@ -43,6 +43,8 @@ export interface StaticProperty {
   image_url: string;
   sort_order: number;
   active: number;
+  /** Numeric AED/month value for price range filtering. */
+  priceValue: number;
 }
 
 export const staticProperties: StaticProperty[] = [
@@ -61,6 +63,7 @@ export const staticProperties: StaticProperty[] = [
     image_url: heroBedroom,
     sort_order: 0,
     active: 1,
+    priceValue: 1800,
   },
   {
     id: "prop-moe-01",
@@ -77,6 +80,7 @@ export const staticProperties: StaticProperty[] = [
     image_url: livingRoom,
     sort_order: 1,
     active: 1,
+    priceValue: 2400,
   },
   {
     id: "prop-satwa-01",
@@ -93,6 +97,7 @@ export const staticProperties: StaticProperty[] = [
     image_url: bedroom2,
     sort_order: 2,
     active: 1,
+    priceValue: 3200,
   },
   {
     id: "prop-albarari-01",
@@ -109,6 +114,7 @@ export const staticProperties: StaticProperty[] = [
     image_url: livingRoom,
     sort_order: 3,
     active: 1,
+    priceValue: 2100,
   },
   {
     id: "prop-abudhabi-01",
@@ -125,6 +131,7 @@ export const staticProperties: StaticProperty[] = [
     image_url: bedroom2,
     sort_order: 4,
     active: 1,
+    priceValue: 1200,
   },
 ];
 
