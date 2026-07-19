@@ -33,9 +33,22 @@ jobs:
         env:
           VITE_APP_URL: https://luxurioushomes.pages.dev
 
+      - name: Patch Nitro wrangler.json (remove reserved ASSETS binding)
+        run: |
+          node -e "
+            const fs = require('fs');
+            const p = '.output/server/wrangler.json';
+            if (fs.existsSync(p)) {
+              const cfg = JSON.parse(fs.readFileSync(p, 'utf8'));
+              delete cfg.assets;
+              fs.writeFileSync(p, JSON.stringify(cfg, null, 2));
+              console.log('Patched wrangler.json');
+            }
+          "
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_KEY }}
           accountId: 4a8511d021c1afe4a6b7f14975b73e53
           command: pages deploy .output/public --project-name=luxurioushomes --commit-dirty=true
