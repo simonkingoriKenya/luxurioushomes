@@ -29,7 +29,7 @@ export const highlights = [
 export const properties = [
   {
     name: "DIP-1 Ewans Residency",
-    location: "Dubai Investment Park",
+    location: "Majan, Dubai",
     price: "AED 1,800",
     unit: "/month · Singles",
     image: heroBedroom,
@@ -41,7 +41,7 @@ export const properties = [
   },
   {
     name: "Alkhail Gate Residence",
-    location: "Al Quoz, Dubai",
+    location: "Mall of Emirates, Dubai",
     price: "AED 2,400",
     unit: "/month · Suite",
     image: livingRoom,
@@ -53,7 +53,7 @@ export const properties = [
   },
   {
     name: "Downtown Executive Loft",
-    location: "Business Bay",
+    location: "Satwa, Dubai",
     price: "AED 3,200",
     unit: "/month · 1 BR",
     image: bedroom2,

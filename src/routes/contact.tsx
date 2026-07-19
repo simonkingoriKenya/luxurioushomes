@@ -67,7 +67,7 @@ function ContactPage() {
             <div className="sm:mt-5">
               <div className="text-xs uppercase tracking-widest text-muted-foreground">Locations</div>
               <div className="mt-1 sm:mt-2 font-serif text-xl sm:text-2xl">Across Dubai</div>
-              <div className="mt-1 sm:mt-2 text-sm text-muted-foreground">DIP · Al Quoz · Business Bay · Alkhail Gate</div>
+              <div className="mt-1 sm:mt-2 text-sm text-muted-foreground">Majan · Al Barari · Mall of Emirates · Satwa · Abu Dhabi</div>
             </div>
           </div>
         </div>
