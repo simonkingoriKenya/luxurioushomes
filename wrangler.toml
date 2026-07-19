@@ -3,19 +3,13 @@ compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = ".output/public"
 
-# ── D1 Database ────────────────────────────────────────────────────────────────
+# ── D1 Database (migradia-db — shared, tables prefixed lh_) ────────────────────
 [[d1_databases]]
 binding = "DB"
-database_name = "luxurioushomes-db"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_name = "migradia-db"
+database_id = "29bf4482-26c6-4d61-a90b-7d68563711d5"
 
 # ── R2 Object Storage ──────────────────────────────────────────────────────────
 [[r2_buckets]]
 binding = "STORAGE"
 bucket_name = "luxurioushomes-media"
-
-# ── KV Namespace ───────────────────────────────────────────────────────────────
-[[kv_namespaces]]
-binding = "CACHE"
-id = "REPLACE_WITH_KV_NAMESPACE_ID"
-preview_id = "REPLACE_WITH_KV_PREVIEW_ID"

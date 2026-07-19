@@ -7,9 +7,13 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  // Use cloudflare-pages preset so the build output deploys to luxurioushomes.pages.dev
+  // and _worker.js is generated inside .output/public for Pages SSR support.
+  nitro: {
+    preset: "cloudflare-pages",
+  },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
     server: { entry: "server" },
   },
   vite: {

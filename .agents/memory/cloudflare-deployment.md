@@ -1,41 +1,42 @@
 ---
 name: Cloudflare Deployment
-description: How to build and deploy this TanStack Start SSR app to Cloudflare Workers, including the wrangler config workaround needed every deploy.
+description: How to build and deploy this TanStack Start SSR app to Cloudflare Pages (single deployment, no Workers).
 ---
 
 # Cloudflare Deployment
 
 ## Live URL
-https://luxurioushomes.broad-tooth-82ac.workers.dev
+https://luxurioushomes.pages.dev
 
-## Deploy process (must follow every time)
-1. `bun run build`
-2. Overwrite `.output/server/wrangler.json` with the clean config below
-3. Delete `.wrangler/deploy/config.json`
-4. `cd .output/server && CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_KEY bunx wrangler deploy`
+## Deployment target
+**Cloudflare Pages** (NOT Workers). The old Workers deployment (broad-tooth-82ac.workers.dev) was deleted.
 
-**Note:** wrangler requires Node.js ≥ 22. The repl runs Node 20 by default — Node.js 22 module must be installed (`nodejs-22`) for wrangler to work.
+## Nitro preset
+`cloudflare-pages` — set in `vite.config.ts` under `nitro: { preset: "cloudflare-pages" }`.
+Build output goes to `dist/` with `dist/_worker.js/` for SSR and `dist/` for static assets.
 
-## Clean wrangler.json for .output/server/
-```json
-{
-  "compatibility_date": "2024-09-23",
-  "name": "luxurioushomes",
-  "compatibility_flags": ["nodejs_compat"],
-  "main": "index.mjs",
-  "assets": { "binding": "ASSETS", "directory": "../public" },
-  "no_bundle": true,
-  "rules": [{ "type": "ESModule", "globs": ["**/*.mjs", "**/*.js"] }]
-}
+## Deploy process (every time)
+```bash
+bun run build
+CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_KEY bunx wrangler pages deploy dist --project-name luxurioushomes --commit-dirty=true
 ```
 
-**Why:** Nitro's cloudflare-module preset regenerates wrangler.json with `pages_build_output_dir` (Pages-only) and `assets.binding: "ASSETS"` (reserved in Pages). Deploying as a Worker via `wrangler deploy` works — but the config must be patched after every build.
+No wrangler.json patching needed (cloudflare-pages preset handles output correctly).
+
+## Node.js version requirement
+wrangler requires Node.js ≥ 22. Module `nodejs-22` must be installed in the Replit environment.
 
 ## Auth
 - Secret: `CLOUDFLARE_API_KEY` → pass as `CLOUDFLARE_API_TOKEN`
 - Account: Info@migradia.com, ID: 4a8511d021c1afe4a6b7f14975b73e53
-- Token needs **Workers Scripts: Edit** permission
+
+## Cloudflare bindings (set on Pages project via API)
+- **D1** binding `DB` → `migradia-db` (ID: `29bf4482-26c6-4d61-a90b-7d68563711d5`)
+  - Tables prefixed `lh_`: `lh_properties`, `lh_inquiries`, `lh_gallery_images`
+- **R2** binding `STORAGE` → bucket `luxurioushomes-media`
+
+**Why:** Bindings are configured on the Pages project (not in wrangler.toml) via the CF Pages API PATCH endpoint.
 
 ## OG image
 Absolute URL fallback in __root.tsx: https://luxurioushomes.broad-tooth-82ac.workers.dev/og-image.jpg
-Override with VITE_APP_URL env var if domain changes.
+**TODO:** Update to https://luxurioushomes.pages.dev/og-image.jpg

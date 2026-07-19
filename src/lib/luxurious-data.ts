@@ -26,44 +26,121 @@ export const highlights = [
   { icon: UserCheck, title: "Professional Service", desc: "Attentive hosts, seamless move-in, zero hassle." },
 ];
 
-export const properties = [
+/** Mirrors the D1 lh_properties schema. Used as dev fallback when CF env is unavailable. */
+export interface StaticProperty {
+  id: string;
+  name: string;
+  location: string;
+  price: string;
+  unit: string;
+  tag: string;
+  beds: string;
+  baths: string;
+  wifi: string;
+  parking: string;
+  /** Drives the filter tabs on the Properties page. */
+  category: "studio" | "onebr" | "shared";
+  image_url: string;
+  sort_order: number;
+  active: number;
+}
+
+export const staticProperties: StaticProperty[] = [
   {
-    name: "DIP-1 Ewans Residency",
+    id: "prop-majan-01",
+    name: "Majan Heights Studio",
     location: "Majan, Dubai",
     price: "AED 1,800",
     unit: "/month · Singles",
-    image: heroBedroom,
     tag: "Featured",
     beds: "1 King Bed",
     baths: "Ensuite",
     wifi: "Fibre 500 Mbps",
     parking: "1 Space",
+    category: "studio",
+    image_url: heroBedroom,
+    sort_order: 0,
+    active: 1,
   },
   {
-    name: "Alkhail Gate Residence",
+    id: "prop-moe-01",
+    name: "Mall of Emirates Suite",
     location: "Mall of Emirates, Dubai",
     price: "AED 2,400",
     unit: "/month · Suite",
-    image: livingRoom,
     tag: "New Listing",
     beds: "Queen + Sofa",
     baths: "Marble Ensuite",
     wifi: "Fibre 1 Gbps",
     parking: "Covered",
+    category: "onebr",
+    image_url: livingRoom,
+    sort_order: 1,
+    active: 1,
   },
   {
-    name: "Downtown Executive Loft",
+    id: "prop-satwa-01",
+    name: "Satwa Executive Loft",
     location: "Satwa, Dubai",
     price: "AED 3,200",
     unit: "/month · 1 BR",
-    image: bedroom2,
     tag: "Skyline View",
     beds: "King Bed",
     baths: "Rain Shower",
     wifi: "Fibre 1 Gbps",
     parking: "Valet",
+    category: "onebr",
+    image_url: bedroom2,
+    sort_order: 2,
+    active: 1,
+  },
+  {
+    id: "prop-albarari-01",
+    name: "Al Barari Garden Apartment",
+    location: "Al Barari, Dubai",
+    price: "AED 2,100",
+    unit: "/month · Studio",
+    tag: "Nature View",
+    beds: "1 Queen Bed",
+    baths: "Ensuite",
+    wifi: "Fibre 500 Mbps",
+    parking: "Covered",
+    category: "studio",
+    image_url: livingRoom,
+    sort_order: 3,
+    active: 1,
+  },
+  {
+    id: "prop-abudhabi-01",
+    name: "Abu Dhabi Shared Residence",
+    location: "Abu Dhabi",
+    price: "AED 1,200",
+    unit: "/month · Shared",
+    tag: "Best Value",
+    beds: "Single Bed",
+    baths: "Shared Bath",
+    wifi: "Fibre 300 Mbps",
+    parking: "Shared",
+    category: "shared",
+    image_url: bedroom2,
+    sort_order: 4,
+    active: 1,
   },
 ];
+
+/** @deprecated Use staticProperties. Kept for compatibility. */
+export const properties = staticProperties.slice(0, 3).map((p) => ({
+  name: p.name,
+  location: p.location,
+  price: p.price,
+  unit: p.unit,
+  image: p.image_url,
+  tag: p.tag,
+  beds: p.beds,
+  baths: p.baths,
+  wifi: p.wifi,
+  parking: p.parking,
+}));
 
 export const gallery = [
   { src: livingRoom, label: "Spacious Living Areas" },
