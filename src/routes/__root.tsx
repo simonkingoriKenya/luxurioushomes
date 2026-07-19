@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header as SiteHeader } from "@/components/site/Header";
 import { Footer as SiteFooter } from "@/components/site/Footer";
+import { MobileBottomBar } from "@/components/site/MobileBottomBar";
 
 function NotFoundComponent() {
   return (
@@ -78,10 +79,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { title: "Luxurious Homes — Executive Living in Dubai" },
       { name: "description", content: "Clean, well-maintained executive apartments in Dubai's prime locations. Book your space today with Luxurious Homes." },
       { name: "author", content: "Luxurious Homes" },
+      // PWA / mobile
+      { name: "theme-color", content: "#1a1a2e" },
+      { name: "mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "default" },
+      { name: "apple-mobile-web-app-title", content: "LH Dubai" },
+      // OG / social
       { property: "og:title", content: "Luxurious Homes — Executive Living in Dubai" },
       { property: "og:description", content: "Clean, well-maintained executive apartments in Dubai's prime locations." },
       { property: "og:type", content: "website" },
@@ -93,10 +101,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "manifest", href: "/manifest.webmanifest" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/favicon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" },
-      { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],
   }),
   shellComponent: RootShell,
@@ -122,14 +132,23 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
+  // Register service worker
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js").catch(() => {});
+    }
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen flex flex-col bg-background text-foreground">
+      {/* pb-20 on mobile to clear the sticky bottom bar */}
+      <div className="min-h-screen flex flex-col bg-background text-foreground pb-20 md:pb-0">
         <SiteHeader />
         <main className="flex-1">
           <Outlet />
         </main>
         <SiteFooter />
+        <MobileBottomBar />
       </div>
     </QueryClientProvider>
   );

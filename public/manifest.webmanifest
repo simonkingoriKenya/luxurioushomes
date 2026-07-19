@@ -1,0 +1,38 @@
+{
+  "name": "Luxurious Homes Dubai",
+  "short_name": "LH Dubai",
+  "description": "Executive living apartments in Dubai's prime locations. Book your space today.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#1a1a2e",
+  "lang": "en",
+  "categories": ["lifestyle", "travel"],
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "View Properties",
+      "url": "/properties",
+      "description": "Browse available apartments"
+    },
+    {
+      "name": "Contact Us",
+      "url": "/contact",
+      "description": "Get in touch via call or WhatsApp"
+    }
+  ]
+}
