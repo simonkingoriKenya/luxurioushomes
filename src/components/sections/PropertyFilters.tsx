@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { Search, X, ChevronDown, SlidersHorizontal } from "lucide-react";
+import { Search, X, ChevronDown } from "lucide-react";
 
 export type Category = "all" | "studio" | "onebr" | "shared";
 export type SortKey = "default" | "price-asc" | "price-desc";
@@ -8,7 +8,7 @@ export interface FilterState {
   query: string;
   category: Category;
   location: string;
-  priceMax: number;  // 0 = any
+  priceMax: number; // 0 = any
   sortBy: SortKey;
 }
 
@@ -41,15 +41,76 @@ const SORT_OPTIONS: { id: SortKey; label: string }[] = [
   { id: "price-desc", label: "Price: High → Low" },
 ];
 
+/** Comprehensive list of major Dubai districts and nearby areas. */
+export const DUBAI_LOCATIONS = [
+  "Al Barari",
+  "Al Barsha",
+  "Al Furjan",
+  "Al Karama",
+  "Al Khail Heights",
+  "Al Mamzar",
+  "Al Mankhool",
+  "Al Muraqqabat",
+  "Al Nahda",
+  "Al Quoz",
+  "Al Rigga",
+  "Al Satwa",
+  "Al Sufouh",
+  "Al Warqa",
+  "Arabian Ranches",
+  "Arjan",
+  "Barsha Heights (Tecom)",
+  "Bluewaters Island",
+  "Bur Dubai",
+  "Business Bay",
+  "Deira",
+  "DIFC",
+  "Discovery Gardens",
+  "Downtown Dubai",
+  "Dubai Creek Harbour",
+  "Dubai Festival City",
+  "Dubai Hills Estate",
+  "Dubai Internet City",
+  "Dubai Marina",
+  "Dubai Silicon Oasis",
+  "Dubai South",
+  "Dubai Sports City",
+  "Dubailand",
+  "Falcon City",
+  "International City",
+  "Jumeirah",
+  "Jumeirah Beach Residence (JBR)",
+  "Jumeirah Lake Towers (JLT)",
+  "Jumeirah Village Circle (JVC)",
+  "Jumeirah Village Triangle (JVT)",
+  "Liwan",
+  "Majan",
+  "Meydan",
+  "Mirdif",
+  "Motor City",
+  "Muhaisnah",
+  "Muteena",
+  "Nad Al Sheba",
+  "Palm Jumeirah",
+  "Ras Al Khor",
+  "Remraam",
+  "Satwa",
+  "The Greens",
+  "The Springs",
+  "The Views",
+  "Town Square",
+  "Umm Suqeim",
+  "Abu Dhabi",
+] as const;
+
 interface Props {
   filters: FilterState;
   onChange: (f: FilterState) => void;
-  locations: string[];
   resultCount: number;
   totalCount: number;
 }
 
-export function PropertyFilters({ filters, onChange, locations, resultCount, totalCount }: Props) {
+export function PropertyFilters({ filters, onChange, resultCount, totalCount }: Props) {
   const set = <K extends keyof FilterState>(key: K, val: FilterState[K]) =>
     onChange({ ...filters, [key]: val });
 
@@ -112,13 +173,14 @@ export function PropertyFilters({ filters, onChange, locations, resultCount, tot
           value={filters.location || "Any location"}
           active={filters.location !== ""}
           onClear={() => set("location", "")}
+          scrollable
         >
           <DropdownItem
             label="Any location"
             selected={filters.location === ""}
             onClick={() => set("location", "")}
           />
-          {locations.map((loc) => (
+          {DUBAI_LOCATIONS.map((loc) => (
             <DropdownItem
               key={loc}
               label={loc}
@@ -198,9 +260,10 @@ interface DropdownProps {
   active: boolean;
   onClear: () => void;
   children: React.ReactNode;
+  scrollable?: boolean;
 }
 
-function Dropdown({ label: _label, value, active, onClear, children }: DropdownProps) {
+function Dropdown({ label: _label, value, active, onClear, children, scrollable }: DropdownProps) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -223,19 +286,29 @@ function Dropdown({ label: _label, value, active, onClear, children }: DropdownP
             : "border-border bg-card text-foreground hover:border-accent/50"
         }`}
       >
-        <span className="max-w-[120px] truncate">{value}</span>
+        <span className="max-w-[140px] truncate">{value}</span>
         {active ? (
           <X
             className="h-3 w-3 shrink-0"
-            onClick={(e) => { e.stopPropagation(); onClear(); setOpen(false); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              onClear();
+              setOpen(false);
+            }}
           />
         ) : (
-          <ChevronDown className={`h-3 w-3 shrink-0 transition-transform ${open ? "rotate-180" : ""}`} />
+          <ChevronDown
+            className={`h-3 w-3 shrink-0 transition-transform ${open ? "rotate-180" : ""}`}
+          />
         )}
       </button>
 
       {open && (
-        <div className="absolute left-0 top-full mt-1.5 z-30 min-w-[180px] rounded-2xl border border-border bg-card shadow-elegant overflow-hidden">
+        <div
+          className={`absolute left-0 top-full mt-1.5 z-30 min-w-[200px] rounded-2xl border border-border bg-card shadow-elegant overflow-hidden ${
+            scrollable ? "max-h-64 overflow-y-auto" : ""
+          }`}
+        >
           {children}
         </div>
       )}

@@ -55,7 +55,7 @@ export const staticProperties: StaticProperty[] = [
   {
     id: "prop-majan-01",
     name: "Majan Heights Studio",
-    location: "Majan, Dubai",
+    location: "Majan",
     price: "AED 1,800",
     unit: "/month · Singles",
     tag: "Featured",
@@ -72,7 +72,7 @@ export const staticProperties: StaticProperty[] = [
   {
     id: "prop-moe-01",
     name: "Mall of Emirates Suite",
-    location: "Mall of Emirates, Dubai",
+    location: "Al Barsha",
     price: "AED 2,400",
     unit: "/month · Suite",
     tag: "New Listing",
@@ -89,7 +89,7 @@ export const staticProperties: StaticProperty[] = [
   {
     id: "prop-satwa-01",
     name: "Satwa Executive Loft",
-    location: "Satwa, Dubai",
+    location: "Satwa",
     price: "AED 3,200",
     unit: "/month · 1 BR",
     tag: "Skyline View",
@@ -106,7 +106,7 @@ export const staticProperties: StaticProperty[] = [
   {
     id: "prop-albarari-01",
     name: "Al Barari Garden Apartment",
-    location: "Al Barari, Dubai",
+    location: "Al Barari",
     price: "AED 2,100",
     unit: "/month · Studio",
     tag: "Nature View",

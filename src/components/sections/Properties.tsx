@@ -41,12 +41,6 @@ export function Properties({
 
   const source = (properties ?? staticProperties).filter((p) => p.active);
 
-  // Unique locations for the dropdown
-  const locations = useMemo(
-    () => [...new Set(source.map((p) => p.location))].sort(),
-    [source],
-  );
-
   // Apply all filters with AND logic
   const visible = useMemo(() => {
     let result = source;
@@ -66,9 +60,10 @@ export function Properties({
       result = result.filter((p) => p.category === filters.category);
     }
 
-    // Location
+    // Location — case-insensitive contains so "Al Barsha" matches "Al Barsha, Dubai" etc.
     if (filters.location) {
-      result = result.filter((p) => p.location === filters.location);
+      const loc = filters.location.toLowerCase();
+      result = result.filter((p) => p.location.toLowerCase().includes(loc));
     }
 
     // Price bracket
@@ -109,7 +104,6 @@ export function Properties({
             <PropertyFilters
               filters={filters}
               onChange={setFilters}
-              locations={locations}
               resultCount={visible.length}
               totalCount={source.length}
             />
