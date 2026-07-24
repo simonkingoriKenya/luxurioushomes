@@ -13,6 +13,10 @@ import livingRoom from "@/assets/living-room.jpg";
 import kitchen from "@/assets/kitchen.jpg";
 import bathroom from "@/assets/bathroom.jpg";
 import bedroom2 from "@/assets/bedroom-2.jpg";
+import mallOfEmiratesSuite from "@/assets/mall-of-emirates-suite.jpg";
+import alBarariApartment from "@/assets/al-barari-apartment.jpg";
+import satwaExecutiveLoft from "@/assets/satwa-executive-loft.jpg";
+import abuDhabiShared from "@/assets/abu-dhabi-shared.jpg";
 
 export const PHONE_RAW = "+971506841674";
 export const PHONE_DISPLAY = "050 684 1674";
@@ -77,7 +81,7 @@ export const staticProperties: StaticProperty[] = [
     wifi: "Fibre 1 Gbps",
     parking: "Covered",
     category: "onebr",
-    image_url: livingRoom,
+    image_url: mallOfEmiratesSuite,
     sort_order: 1,
     active: 1,
     priceValue: 2400,
@@ -94,7 +98,7 @@ export const staticProperties: StaticProperty[] = [
     wifi: "Fibre 1 Gbps",
     parking: "Valet",
     category: "onebr",
-    image_url: bedroom2,
+    image_url: satwaExecutiveLoft,
     sort_order: 2,
     active: 1,
     priceValue: 3200,
@@ -111,7 +115,7 @@ export const staticProperties: StaticProperty[] = [
     wifi: "Fibre 500 Mbps",
     parking: "Covered",
     category: "studio",
-    image_url: livingRoom,
+    image_url: alBarariApartment,
     sort_order: 3,
     active: 1,
     priceValue: 2100,
@@ -128,7 +132,7 @@ export const staticProperties: StaticProperty[] = [
     wifi: "Fibre 300 Mbps",
     parking: "Shared",
     category: "shared",
-    image_url: bedroom2,
+    image_url: abuDhabiShared,
     sort_order: 4,
     active: 1,
     priceValue: 1200,
