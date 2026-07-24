@@ -1,5 +1,5 @@
-import { MessageCircle } from "lucide-react";
 import { WHATSAPP_URL } from "@/lib/luxurious-data";
+import { WhatsAppIcon } from "./WhatsAppIcon";
 
 type Props = {
   label?: string;
@@ -26,7 +26,7 @@ export function WhatsAppButton({ label = "WhatsApp", size = "md", variant = "sol
       aria-label="Chat on WhatsApp"
       className={`inline-flex items-center gap-2 rounded-full font-medium transition-colors ${sizes[size]} ${base} ${className}`}
     >
-      <MessageCircle className="h-4 w-4" /> {label}
+      <WhatsAppIcon className="h-4 w-4" /> {label}
     </a>
   );
 }
