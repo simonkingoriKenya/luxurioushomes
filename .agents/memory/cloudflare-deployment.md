@@ -50,5 +50,4 @@ wrangler requires Node.js ≥ 22. Module `nodejs-22` must be installed in the Re
 **Why:** Bindings are configured on the Pages project (not in wrangler.toml) via the CF Pages API PATCH endpoint.
 
 ## OG image
-Absolute URL fallback in __root.tsx: https://luxurioushomes.broad-tooth-82ac.workers.dev/og-image.jpg
-**TODO:** Update to https://luxurioushomes.pages.dev/og-image.jpg
+Fallback in `src/routes/__root.tsx` uses `VITE_APP_URL` env var, defaulting to `https://luxurioushomes.pages.dev/og-image.jpg`. No action needed.
